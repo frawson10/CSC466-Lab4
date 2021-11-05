@@ -98,6 +98,8 @@ public class dbscan {
                                                      ArrayList<ArrayList<Integer>> neighbors){
         /**
          * output - clusters
+         * each cluster is an ArrayList where it's first element is its core
+         * last cluster in the list is actually a list of outliers
          */
         ArrayList<ArrayList<Integer>> clusters = new ArrayList<ArrayList<Integer>>();
         ArrayList<Integer> visitedPoints = new ArrayList<Integer>();
@@ -129,6 +131,14 @@ public class dbscan {
             }
             clusters.add(currCluster);
         }
+
+        ArrayList<Integer> outliers = new ArrayList<Integer>();
+        for(int i = 0; i < neighbors.size(); i++){
+            if(!visitedPoints.contains(i)){
+                outliers.add(i);
+            }
+        }
+        clusters.add(outliers);
         return clusters;
     }
 
@@ -142,8 +152,8 @@ public class dbscan {
                                         ArrayList<ArrayList<String>> data){
         int core;
         double maxDist, minDist, avgDist, currDist, SSE;
-        int clusterIdx = 0;
-        for(ArrayList<Integer> cluster: clusters){
+        for(int idx = 0; idx < clusters.size() - 1; idx++){
+            ArrayList<Integer> cluster = clusters.get(idx);
             core = cluster.get(0);
             avgDist = maxDist = minDist = distanceMatrix[core][cluster.get(1)];
             SSE = Math.pow(avgDist, 2);
@@ -156,7 +166,7 @@ public class dbscan {
             }
             avgDist /= cluster.size() - 1;
 
-            System.out.printf("Cluster: %d\n", clusterIdx++);
+            System.out.printf("Cluster: %d\n", idx);
             System.out.printf("Center: %s\n", data.get(core).toString());
             System.out.printf("Max Dist. to Center: %f\n", maxDist);
             System.out.printf("Min Dist. to Center: %f\n", minDist);
@@ -168,6 +178,14 @@ public class dbscan {
             }
             System.out.println();
         }
+        ArrayList<Integer> outliers = clusters.get(clusters.size() - 1);
+        double percentOutlier = (double)outliers.size()/(data.size() - 1);
+        System.out.printf("Percent Outliers in Data: %f\n", percentOutlier);
+        System.out.printf("# of Outliers: %d\n", outliers.size());
+        for(int i = 0; i < outliers.size(); i++){
+            System.out.printf("%s\n", data.get(outliers.get(i)).toString());
+        }
+
     }
 
     public static void main(String[] args) {
