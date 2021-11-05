@@ -141,16 +141,18 @@ public class dbscan {
     public static void printClusterInfo(ArrayList<ArrayList<Integer>> clusters, double[][] distanceMatrix,
                                         ArrayList<ArrayList<String>> data){
         int core;
-        double maxDist, minDist, avgDist, currDist;
+        double maxDist, minDist, avgDist, currDist, SSE;
         int clusterIdx = 0;
         for(ArrayList<Integer> cluster: clusters){
             core = cluster.get(0);
             avgDist = maxDist = minDist = distanceMatrix[core][cluster.get(1)];
+            SSE = Math.pow(avgDist, 2);
             for(int i = 2; i < cluster.size(); i++){
                 currDist = distanceMatrix[core][cluster.get(i)];
                 avgDist += currDist;
                 if(currDist < minDist) { minDist = currDist; }
                 if(currDist > maxDist) { maxDist = currDist; }
+                SSE += Math.pow(currDist, 2);
             }
             avgDist /= cluster.size() - 1;
 
@@ -159,6 +161,7 @@ public class dbscan {
             System.out.printf("Max Dist. to Center: %f\n", maxDist);
             System.out.printf("Min Dist. to Center: %f\n", minDist);
             System.out.printf("Avg Dist. to Center: %f\n", avgDist);
+            System.out.printf("SSE: %f\n", SSE);
             System.out.printf("%d Points:\n", cluster.size() - 1);
             for(int i = 1; i < cluster.size(); i++){
                 System.out.printf("%s\n", data.get(cluster.get(i)).toString());
