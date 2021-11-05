@@ -5,22 +5,23 @@ import java.lang.Math;
 
 public class dbscan {
 
-    public static ArrayList<ArrayList<Double>> readCSV(String filename) {
+    public static ArrayList<ArrayList<String>> readCSV(String filename) {
         /**
          * output is an ArrayList of ArrayList of doubles
          * can be indexed into in row-major order
          * output.get(i).get(j) = d[i][j]
          * output.get(0) is the binary vector for restrictions
          */
-        ArrayList<ArrayList<Double>> output = new ArrayList<ArrayList<Double>>();
+        ArrayList<ArrayList<String>> output = new ArrayList<ArrayList<String>>();
         try {
             Scanner sc = new Scanner(new File(filename));
             String curr;
             while(sc.hasNextLine()) {
                 curr = sc.nextLine();
+                if(curr.equals("")) { break; }  // case for extra line @ end of iris
                 String[] vals = curr.split(",");
-                ArrayList<Double> row = new ArrayList<Double>();
-                for(String v: vals) { row.add(Double.parseDouble(v)); }
+                ArrayList<String> row = new ArrayList<String>();
+                for(String v: vals) { row.add(v); }
                 output.add(row);
             }
         }
@@ -31,13 +32,13 @@ public class dbscan {
         return output;
     }
 
-    public static double[][] makeDistanceMatrix(ArrayList<ArrayList<Double>> data){
+    public static double[][] makeDistanceMatrix(ArrayList<ArrayList<String>> data){
         /**
          * returns a fully filled out distance matrix
          * note: matrix[i][j] = matrix[j][i] and matrix[i][i] = 0
          *       for loops could be changed for optimization
          */
-        ArrayList<Double> binaryVector = data.remove(0);
+        ArrayList<String> binaryVector = data.remove(0);
         int numPoints = data.size();
         double[][] matrix = new double[numPoints][numPoints];
         for(int i = 0; i < matrix.length; i++){
@@ -48,15 +49,15 @@ public class dbscan {
         return matrix;
     }
 
-    public static double getDistance(ArrayList<Double> x, ArrayList<Double> y, ArrayList<Double> bVector){
+    public static double getDistance(ArrayList<String> x, ArrayList<String> y, ArrayList<String> bVector){
         /**
          * gets the manhattan distance of 2 points, using only attributes indicated in the binary vector
          * note: yet to experiment with other distance calculations
          */
         double distance = 0;
         for(int i = 0; i < bVector.size(); i++){
-            if(bVector.get(i) != 0){
-                distance += Math.abs(x.get(i) - y.get(i));
+            if(Double.parseDouble(bVector.get(i)) != 0){
+                distance += Math.abs(Double.parseDouble(x.get(i)) - Double.parseDouble(y.get(i)));
             }
         }
         return distance;
@@ -131,9 +132,38 @@ public class dbscan {
         return clusters;
     }
 
-    public static void print2dArrayList(ArrayList<ArrayList<Double>> data) {
+    public static void print2dArrayList(ArrayList<ArrayList<String>> data) {
         for(int r = 0; r < data.size(); r++) {
             System.out.println(data.get(r).toString());
+        }
+    }
+
+    public static void printClusterInfo(ArrayList<ArrayList<Integer>> clusters, double[][] distanceMatrix,
+                                        ArrayList<ArrayList<String>> data){
+        int core;
+        double maxDist, minDist, avgDist, currDist;
+        int clusterIdx = 0;
+        for(ArrayList<Integer> cluster: clusters){
+            core = cluster.get(0);
+            avgDist = maxDist = minDist = distanceMatrix[core][cluster.get(1)];
+            for(int i = 2; i < cluster.size(); i++){
+                currDist = distanceMatrix[core][cluster.get(i)];
+                avgDist += currDist;
+                if(currDist < minDist) { minDist = currDist; }
+                if(currDist > maxDist) { maxDist = currDist; }
+            }
+            avgDist /= cluster.size() - 1;
+
+            System.out.printf("Cluster: %d\n", clusterIdx++);
+            System.out.printf("Center: %s\n", data.get(core).toString());
+            System.out.printf("Max Dist. to Center: %f\n", maxDist);
+            System.out.printf("Min Dist. to Center: %f\n", minDist);
+            System.out.printf("Avg Dist. to Center: %f\n", avgDist);
+            System.out.printf("%d Points:\n", cluster.size() - 1);
+            for(int i = 1; i < cluster.size(); i++){
+                System.out.printf("%s\n", data.get(cluster.get(i)).toString());
+            }
+            System.out.println();
         }
     }
 
@@ -143,21 +173,18 @@ public class dbscan {
             System.exit(1);
         }
 
-        ArrayList<ArrayList<Double>> data = dbscan.readCSV(args[0]);
+        ArrayList<ArrayList<String>> data = dbscan.readCSV(args[0]);
         double epsilon;
         int minPoints;
         epsilon = Double.parseDouble(args[1]);
         minPoints = Integer.parseInt(args[2]);
 
+
         double[][] distanceMatrix = dbscan.makeDistanceMatrix(data);
         ArrayList<ArrayList<Integer>> neighbors = dbscan.getNeighbors(distanceMatrix, epsilon);
         ArrayList<Integer> corePoints = dbscan.getCorePoints(neighbors, minPoints);
         ArrayList<ArrayList<Integer>> clusters = dbscan.getClusters(corePoints, neighbors);
-        System.out.println(clusters.size());
-        for(ArrayList<Integer> cluster: clusters){
-            System.out.println(cluster.toString());
-        }
 
+        dbscan.printClusterInfo(clusters, distanceMatrix, data);
     }
-
 }
