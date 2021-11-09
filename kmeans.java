@@ -8,9 +8,20 @@ import java.lang.Math;
 
 class kmeans{
     public static void main(String[] args){
-        int k = 4;
-        ArrayList<ArrayList<String>> D = getData("data/4clusters.csv");
+        if(args.length != 2) {
+            System.out.println("usage: java kmeans <Filename> <k>");
+            System.exit(1);
+        }
+        int k = Integer.parseInt(args[1]);
+        ArrayList<ArrayList<String>> D = getData(args[0]);
         ArrayList<String> restrictions = D.get(0);
+        for(int i=0; i<restrictions.size(); i++){
+            if(restrictions.get(i).equals("0")){
+                for(ArrayList<String> point : D){
+                    point.remove(i);
+                }
+            }
+        }
         D.remove(0);
         ArrayList<ArrayList<String>> initialCentroids = selectInitialCentroids(D, k);
         getFinalClusters(D, initialCentroids, k);
@@ -101,7 +112,6 @@ class kmeans{
             }
             finalClusters.get(set.getValue()).add(set.getKey());
         }
-        System.out.println(finalClusters);
         int counter =0;
         for(Map.Entry<ArrayList<String>, ArrayList<ArrayList<String>>> set : finalClusters.entrySet()){
             System.out.println("Cluster "+counter);
@@ -134,7 +144,7 @@ class kmeans{
         for(int i=0; i<D.get(0).size(); i++){
             double dimensionalSum = 0;
             for(int j=0; j<D.size(); j++){
-                dimensionalSum += Integer.parseInt(D.get(j).get(i));
+                dimensionalSum += Double.parseDouble(D.get(j).get(i));
             }
             mainCentroid.add(i, String.valueOf(dimensionalSum / D.size()));
         }
@@ -193,7 +203,9 @@ class kmeans{
                 for(String s : line){
                     lineVals.add(s);
                 }
-                data.add(lineVals);
+                if(lineVals.size() > 1){
+                    data.add(lineVals);
+                }
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
