@@ -83,8 +83,12 @@ public class hclustering{
                 }
             }
 
-            Node cluster1 = clusters.remove(idx2);
-            Node cluster2 = clusters.remove(idx1);
+            //System.out.println(idx1 + " " + idx2);
+            Node cluster1 = clusters.get(idx2);
+            Node cluster2 = clusters.get(idx1);
+            clusters.remove(cluster1);
+            clusters.remove(cluster2);
+            //System.out.println(cluster1.value + " " + cluster2.value);
             //combine and place in list
             Node combinedCluster = new Node(shortestLink, cluster1, cluster2);
             clusters.add(combinedCluster);
@@ -103,5 +107,10 @@ public class hclustering{
         ArrayList<Node> clusters = hclustering.makeLeafNodes(data.size() - 1);
         double[][] dm = hclustering.makeDistanceMatrix(data);
         Node root = hclustering.buildDendrogram(clusters, dm);
+
+        Node n1 = new Node(1);
+        Node n2 = new Node(2);
+        Node c = new Node(3.0, n1, n2);
+
     }
 }

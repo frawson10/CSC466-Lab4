@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 
 public class Node{
-    Node lChild;
-    Node rChild;
+    Node lChild = null;
+    Node rChild = null;
     double value;
 
     public Node(double value){
@@ -23,8 +23,8 @@ public class Node{
         q.add(this);
         while(!q.isEmpty()){
             Node curr = q.remove(0);
-            if(curr.lChild == null && curr.rChild == null){
-                leafNodes.add((int)this.value);
+            if(curr.isLeaf()){
+                leafNodes.add((int)curr.value);
             }
             else{
                 q.add(curr.lChild);
