@@ -96,6 +96,35 @@ public class hclustering{
         return clusters.get(0);
     }
 
+    public static ArrayList<Node> splitAtThreshold(Node root, double threshold){
+        ArrayList<Node> clusters = new ArrayList<Node>();
+        ArrayList<Node> q = new ArrayList<Node>();
+        q.add(root);
+        while(!q.isEmpty()){
+            Node curr = q.remove(0);
+            if(!curr.isLeaf() && curr.value > threshold){
+                q.add(curr.lChild);
+                q.add(curr.rChild);
+            }
+            else if(!curr.isLeaf() && curr.value < threshold){
+                clusters.add(curr);
+            }
+        }
+        return clusters;
+    }
+
+    public static void printInfo(ArrayList<Node> clusters, double[][] dm,
+                                 ArrayList<ArrayList<String>> data){
+        int idx = 0;
+        for(Node cluster: clusters){
+            System.out.printf("Cluster %d:\n", idx);
+            System.out.println("Data Points:\n");
+            for(int i: cluster.getLeafNodes()){
+                System.out.println(data.get(i));
+            }
+        }
+    }
+
 
     public static void main(String[] args){
         if(args.length == 0){
@@ -104,13 +133,16 @@ public class hclustering{
         }
 
         ArrayList<ArrayList<String>> data = dbscan.readCSV(args[0]);
-        ArrayList<Node> clusters = hclustering.makeLeafNodes(data.size() - 1);
+        ArrayList<Node> init_clusters = hclustering.makeLeafNodes(data.size() - 1);
         double[][] dm = hclustering.makeDistanceMatrix(data);
-        Node root = hclustering.buildDendrogram(clusters, dm);
+        Node root = hclustering.buildDendrogram(init_clusters, dm);
 
-        Node n1 = new Node(1);
-        Node n2 = new Node(2);
-        Node c = new Node(3.0, n1, n2);
+        if(args.length == 2){
+            double thresh = Double.parseDouble(args[1]);
+            ArrayList<Node> clusters = hclustering.splitAtThreshold(root, thresh);
+            hclustering.printInfo(clusters, dm, data);
+        }
+
 
     }
 }
