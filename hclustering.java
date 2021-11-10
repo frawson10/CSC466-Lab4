@@ -117,12 +117,16 @@ public class hclustering{
     public static int getCentroid(Node cluster, ArrayList<ArrayList<String>> data){
         ArrayList<String> bVector = data.remove(0);
 
+        System.out.println(bVector);
+
         double[] avgVals = new double[data.get(0).size()];
         for(double v: avgVals) { v = 0; }
         for(int i: cluster.getLeafNodes()){
             ArrayList<String> datapoint = data.get(i);
             for(int j = 0; j < datapoint.size(); j++){
-                avgVals[j] += Double.parseDouble(datapoint.get(j));
+                if(Double.parseDouble(bVector.get(j)) != 0) {
+                    avgVals[j] += Double.parseDouble(datapoint.get(j));
+                }
             }
         }
         for (double v: avgVals) { v /= cluster.getLeafNodes().size(); }
