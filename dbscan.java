@@ -42,9 +42,10 @@ public class dbscan {
         int numPoints = data.size();
         double[][] matrix = new double[numPoints][numPoints];
         for(int i = 0; i < matrix.length; i++){
-            for(int j = 0; j < matrix[0].length; j++){
-                matrix[i][j] = dbscan.getDistance(data.get(i), data.get(j), binaryVector);
+            for(int j = 0; j < i; j++){
+                matrix[i][j] = matrix[j][i] = dbscan.getDistance(data.get(i), data.get(j), binaryVector);
             }
+            matrix[i][i] = 0;
         }
         return matrix;
     }
