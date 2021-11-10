@@ -115,7 +115,7 @@ public class hclustering{
                 q.add(curr.lChild);
                 q.add(curr.rChild);
             }
-            else if(!curr.isLeaf() && curr.value < threshold){
+            else if(!curr.isLeaf() && curr.value <= threshold){
                 clusters.add(curr);
             }
         }
@@ -131,7 +131,7 @@ public class hclustering{
         for(double v: avgVals) { v = 0; }
         for(int i: cluster.getLeafNodes()){
             ArrayList<String> datapoint = data.get(i);
-            for(int j = 0; j < datapoint.size(); j++){
+            for(int j = 0; j < bVector.size(); j++){
                 if(Double.parseDouble(bVector.get(j)) != 0) {
                     avgVals[j] += Double.parseDouble(datapoint.get(j));
                 }

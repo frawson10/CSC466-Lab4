@@ -1,0 +1,323 @@
+Cluster 0:
+[0, 1, 1, 1, 1, 1]
+Center: [Cat, 81.6, 10.1, 6.3, 4.4, 0.75]
+Max Dist. to Center: 6.630000
+Min Dist. to Center: 4.580000
+Avg Dist. to Center: 5.764000
+SSE: 168.837400
+6 Points:
+[Buffalo, 82.1, 5.9, 7.9, 4.7, 0.78]
+[Guinea Pig, 81.9, 7.4, 7.2, 2.7, 0.85]
+[Cat, 81.6, 10.1, 6.3, 4.4, 0.75]
+[Fox, 81.6, 6.6, 5.9, 4.9, 0.93]
+[Sheep, 82, 5.6, 6.4, 4.7, 0.91]
+[Pig, 82.8, 7.1, 5.1, 3.7, 1.1]
+
+Cluster 1:
+[0, 1, 1, 1, 1, 1]
+Center: [Deer, 65.9, 10.4, 19.7, 2.6, 1.4]
+Max Dist. to Center: 4.850000
+Min Dist. to Center: 2.100000
+Avg Dist. to Center: 3.475000
+SSE: 27.932500
+3 Points:
+[Deer, 65.9, 10.4, 19.7, 2.6, 1.4]
+[Whale, 64.8, 11.1, 21.2, 1.6, 0.85]
+[Reindeer, 64.8, 10.7, 20.3, 2.5, 1.4]
+
+Cluster 2:
+[0, 1, 1, 1, 1, 1]
+Center: [Donkey, 90.3, 1.7, 1.4, 6.2, 0.4]
+Max Dist. to Center: 6.400000
+Min Dist. to Center: 1.770000
+Avg Dist. to Center: 4.212500
+SSE: 81.860900
+5 Points:
+[Orangutan, 88.5, 1.4, 3.5, 6, 0.24]
+[Monkey, 88.4, 2.2, 2.7, 6.4, 0.18]
+[Donkey, 90.3, 1.7, 1.4, 6.2, 0.4]
+[Mule, 90, 2, 1.8, 5.5, 0.47]
+[Hippo, 90.4, 0.6, 4.5, 4.4, 0.1]
+
+Cluster 3:
+[0, 1, 1, 1, 1, 1]
+Center: [Camel, 87.7, 3.5, 3.4, 4.8, 0.71]
+Max Dist. to Center: 4.890000
+Min Dist. to Center: 2.690000
+Avg Dist. to Center: 3.830000
+SSE: 46.436300
+4 Points:
+[Camel, 87.7, 3.5, 3.4, 4.8, 0.71]
+[Bison, 86.9, 4.8, 1.7, 5.7, 0.9]
+[Zebra, 86.2, 3, 4.8, 5.3, 0.7]
+[Llama, 86.5, 3.9, 3.2, 5.6, 0.8]
+
+{
+  "nodes": [
+    {
+      "nodes": [
+        {
+          "nodes": [
+            {
+              "nodes": [
+                {
+                  "nodes": [
+                    {
+                      "nodes": [
+                        {
+                          "nodes": [
+                            {
+                              "nodes": [
+                                {
+                                  "type": "leaf",
+                                  "value": 22,
+                                  "height": 0
+                                },
+                                {
+                                  "type": "leaf",
+                                  "value": 21,
+                                  "height": 0
+                                }
+                              ],
+                              "type": "node",
+                              "height": 6.309999999999995
+                            },
+                            {
+                              "type": "leaf",
+                              "value": 20,
+                              "height": 0
+                            }
+                          ],
+                          "type": "node",
+                          "height": 6.309999999999995
+                        },
+                        {
+                          "type": "leaf",
+                          "value": 18,
+                          "height": 0
+                        }
+                      ],
+                      "type": "node",
+                      "height": 33.75
+                    },
+                    {
+                      "type": "leaf",
+                      "value": 17,
+                      "height": 0
+                    }
+                  ],
+                  "type": "node",
+                  "height": 33.75
+                },
+                {
+                  "type": "leaf",
+                  "value": 16,
+                  "height": 0
+                }
+              ],
+              "type": "node",
+              "height": 33.75
+            },
+            {
+              "nodes": [
+                {
+                  "nodes": [
+                    {
+                      "nodes": [
+                        {
+                          "nodes": [
+                            {
+                              "nodes": [
+                                {
+                                  "nodes": [
+                                    {
+                                      "nodes": [
+                                        {
+                                          "type": "leaf",
+                                          "value": 12,
+                                          "height": 0
+                                        },
+                                        {
+                                          "type": "leaf",
+                                          "value": 4,
+                                          "height": 0
+                                        }
+                                      ],
+                                      "type": "node",
+                                      "height": 6.309999999999995
+                                    },
+                                    {
+                                      "type": "leaf",
+                                      "value": 3,
+                                      "height": 0
+                                    }
+                                  ],
+                                  "type": "node",
+                                  "height": 6.309999999999995
+                                },
+                                {
+                                  "type": "leaf",
+                                  "value": 2,
+                                  "height": 0
+                                }
+                              ],
+                              "type": "node",
+                              "height": 6.309999999999995
+                            },
+                            {
+                              "type": "leaf",
+                              "value": 1,
+                              "height": 0
+                            }
+                          ],
+                          "type": "node",
+                          "height": 6.309999999999995
+                        },
+                        {
+                          "nodes": [
+                            {
+                              "nodes": [
+                                {
+                                  "nodes": [
+                                    {
+                                      "type": "leaf",
+                                      "value": 14,
+                                      "height": 0
+                                    },
+                                    {
+                                      "type": "leaf",
+                                      "value": 11,
+                                      "height": 0
+                                    }
+                                  ],
+                                  "type": "node",
+                                  "height": 6.309999999999995
+                                },
+                                {
+                                  "type": "leaf",
+                                  "value": 6,
+                                  "height": 0
+                                }
+                              ],
+                              "type": "node",
+                              "height": 6.309999999999995
+                            },
+                            {
+                              "type": "leaf",
+                              "value": 5,
+                              "height": 0
+                            }
+                          ],
+                          "type": "node",
+                          "height": 6.309999999999995
+                        }
+                      ],
+                      "type": "node",
+                      "height": 33.75
+                    },
+                    {
+                      "nodes": [
+                        {
+                          "nodes": [
+                            {
+                              "nodes": [
+                                {
+                                  "nodes": [
+                                    {
+                                      "nodes": [
+                                        {
+                                          "type": "leaf",
+                                          "value": 15,
+                                          "height": 0
+                                        },
+                                        {
+                                          "type": "leaf",
+                                          "value": 13,
+                                          "height": 0
+                                        }
+                                      ],
+                                      "type": "node",
+                                      "height": 6.309999999999995
+                                    },
+                                    {
+                                      "type": "leaf",
+                                      "value": 10,
+                                      "height": 0
+                                    }
+                                  ],
+                                  "type": "node",
+                                  "height": 6.309999999999995
+                                },
+                                {
+                                  "type": "leaf",
+                                  "value": 9,
+                                  "height": 0
+                                }
+                              ],
+                              "type": "node",
+                              "height": 6.309999999999995
+                            },
+                            {
+                              "type": "leaf",
+                              "value": 8,
+                              "height": 0
+                            }
+                          ],
+                          "type": "node",
+                          "height": 6.309999999999995
+                        },
+                        {
+                          "type": "leaf",
+                          "value": 7,
+                          "height": 0
+                        }
+                      ],
+                      "type": "node",
+                      "height": 6.309999999999995
+                    }
+                  ],
+                  "type": "node",
+                  "height": 33.75
+                },
+                {
+                  "type": "leaf",
+                  "value": 19,
+                  "height": 0
+                }
+              ],
+              "type": "node",
+              "height": 33.75
+            }
+          ],
+          "type": "node",
+          "height": 96.24000000000001
+        },
+        {
+          "nodes": [
+            {
+              "type": "leaf",
+              "value": 24,
+              "height": 0
+            },
+            {
+              "type": "leaf",
+              "value": 23,
+              "height": 0
+            }
+          ],
+          "type": "node",
+          "height": 33.75
+        }
+      ],
+      "type": "node",
+      "height": 96.24000000000001
+    },
+    {
+      "type": "leaf",
+      "value": 0,
+      "height": 0
+    }
+  ],
+  "type": "root",
+  "height": 29.764166666666668
+}
