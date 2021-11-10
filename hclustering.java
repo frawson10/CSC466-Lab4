@@ -1,5 +1,8 @@
 import java.util.*;
 import java.io.*;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class hclustering{
 
@@ -28,6 +31,11 @@ public class hclustering{
             System.exit(1);
         }
         return output;
+    }
+
+    public static void printJSON(Node tree){
+        JSONObject json = tree.toJSON(true);
+        System.out.println(json.toString(2));
     }
 
     public static ArrayList<Node> makeLeafNodes(int n){
@@ -213,5 +221,12 @@ public class hclustering{
             ArrayList<Node> clusters = hclustering.splitAtThreshold(root, thresh);
             hclustering.printInfo(clusters, dm, data);
         }
+<<<<<<< HEAD
+=======
+
+        printJSON(root);
+
+
+>>>>>>> be85b0f97b3cdd9a7c4d7178086a7563f5a23e4f
     }
 }
