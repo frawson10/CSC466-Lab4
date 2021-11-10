@@ -221,12 +221,6 @@ public class hclustering{
             ArrayList<Node> clusters = hclustering.splitAtThreshold(root, thresh);
             hclustering.printInfo(clusters, dm, data);
         }
-<<<<<<< HEAD
-=======
-
         printJSON(root);
-
-
->>>>>>> be85b0f97b3cdd9a7c4d7178086a7563f5a23e4f
     }
 }
