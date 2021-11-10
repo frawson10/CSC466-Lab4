@@ -213,7 +213,5 @@ public class hclustering{
             ArrayList<Node> clusters = hclustering.splitAtThreshold(root, thresh);
             hclustering.printInfo(clusters, dm, data);
         }
-
-
     }
 }
