@@ -53,6 +53,7 @@ public class hclustering{
             }
             matrix[i][i] = 0;
         }
+        data.add(0, binaryVector);
         return matrix;
     }
 
@@ -113,15 +114,81 @@ public class hclustering{
         return clusters;
     }
 
+    public static int getCentroid(Node cluster, ArrayList<ArrayList<String>> data){
+        ArrayList<String> bVector = data.remove(0);
+
+        double[] avgVals = new double[data.get(0).size()];
+        for(double v: avgVals) { v = 0; }
+        for(int i: cluster.getLeafNodes()){
+            ArrayList<String> datapoint = data.get(i);
+            for(int j = 0; j < datapoint.size(); j++){
+                avgVals[j] += Double.parseDouble(datapoint.get(j));
+            }
+        }
+        for (double v: avgVals) { v /= cluster.getLeafNodes().size(); }
+
+        int centroidIdx = cluster.getLeafNodes().get(0);
+        double minDist = hclustering.getDistance(data.get(centroidIdx), avgVals, bVector);
+        for(int i: cluster.getLeafNodes()){
+            if(hclustering.getDistance(data.get(i), avgVals, bVector) < minDist){
+                centroidIdx = i;
+                minDist = hclustering.getDistance(data.get((int) i), avgVals, bVector);
+            }
+        }
+
+        data.add(0, bVector);
+        return centroidIdx;
+    }
+
+    public static double getDistance(ArrayList<String> x, double[] avg, ArrayList<String> bVector){
+        /**
+         * gets the manhattan distance of 2 points, using only attributes indicated in the binary vector
+         * note: yet to experiment with other distance calculations
+         */
+        double distance = 0;
+        for(int i = 0; i < bVector.size(); i++){
+            if(Double.parseDouble(bVector.get(i)) != 0){
+                distance += Math.abs(Double.parseDouble(x.get(i)) - avg[i]);
+            }
+        }
+        return distance;
+    }
+
     public static void printInfo(ArrayList<Node> clusters, double[][] dm,
                                  ArrayList<ArrayList<String>> data){
+
         int idx = 0;
+        double minDist, avgDist, maxDist, currDist, SSE;
+        int centroid_idx;
         for(Node cluster: clusters){
-            System.out.printf("Cluster %d:\n", idx);
-            System.out.println("Data Points:\n");
+            minDist = 99999999;
+            maxDist = avgDist = SSE = 0;
+            System.out.printf("Cluster %d:\n", idx++);
+            centroid_idx = hclustering.getCentroid(cluster, data);
+            System.out.printf("Center: %s\n", data.get(centroid_idx + 1));
             for(int i: cluster.getLeafNodes()){
-                System.out.println(data.get(i));
+                if(i != centroid_idx){
+                    currDist = dbscan.getDistance(data.get(centroid_idx + 1), data.get(i + 1), data.get(0));
+                    avgDist += currDist;
+                    SSE += Math.pow(currDist, 2);
+                    if(currDist < minDist){
+                        minDist = currDist;
+                    }
+                    if(currDist > maxDist){
+                        maxDist = currDist;
+                    }
+                }
             }
+            avgDist /= cluster.getLeafNodes().size() - 1;
+            System.out.printf("Max Dist. to Center: %f\n", maxDist);
+            System.out.printf("Min Dist. to Center: %f\n", minDist);
+            System.out.printf("Avg Dist. to Center: %f\n", avgDist);
+            System.out.printf("SSE: %f\n", SSE);
+            System.out.printf("%d Points:\n", cluster.getLeafNodes().size());
+            for(int leafIdx: cluster.getLeafNodes()){
+                System.out.println(data.get(leafIdx + 1));
+            }
+            System.out.println();
         }
     }
 
